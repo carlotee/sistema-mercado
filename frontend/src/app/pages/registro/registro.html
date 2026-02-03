@@ -1,0 +1,30 @@
+<link rel="stylesheet" href="registro.css">
+<div class="login-container">
+  <div class="form-login">
+    <h1>Crea tu cuenta</h1>
+    <form (ngSubmit)="onRegistro()">
+      <div class="input-group">
+        <label>Nombre</label>
+        <input type="text" name="nombre" [(ngModel)]="userData.nombre" required>
+      </div>
+      <div class="input-group">
+        <label>Apellido</label>
+        <input type="text" name="apellido" [(ngModel)]="userData.apellido" required>
+      </div>
+      <div class="input-group">
+        <label>Teléfono</label>
+        <input type="text" name="telefono" [(ngModel)]="userData.telefono">
+      </div>
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email" name="email" [(ngModel)]="userData.email" required>
+      </div>
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" name="password" [(ngModel)]="userData.password" required>
+      </div>
+      <button type="submit">Registrarse</button>
+      <p (click)="irALogin()">¿Ya tienes cuenta? Loguéate</p>
+    </form>
+  </div>
+</div>

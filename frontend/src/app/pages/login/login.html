@@ -1,0 +1,37 @@
+<link rel="stylesheet" href="login.css">
+<div class="login-container">
+  <div class="form-login">
+    <h1>Bienvenido a Market</h1>
+    <form (ngSubmit)="onSubmit()">
+      
+      <div class="input-group">
+        <label>Email:</label>
+        <input type="email" name="email" [(ngModel)]="email" required placeholder="ejemplo@correo.com"/>
+      </div>
+
+      <div class="input-group">
+        <label>Password:</label>
+        <div class="password-wrapper">
+          <input 
+            [type]="passwordVisible ? 'text' : 'password'" 
+            name="password" 
+            [(ngModel)]="password" 
+            required 
+            placeholder="ejemplo: hola1234"
+          />
+          
+          <button type="button" class="toggle-btn" (click)="togglePassword()">
+            {{ passwordVisible ? '🙈' : '👁️' }}
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="!email || !password">Login</button>
+      <button type="submit" (click)="irARegistro()">Registrarse</button>
+
+      <p class="error" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </p>
+    </form>
+  </div>
+</div>
