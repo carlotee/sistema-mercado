@@ -12,14 +12,15 @@ import { AuthService } from '../../services/auth.service'; // Importamos el serv
   styleUrl: './registro.css'
 })
 export class RegistroComponent {
-  // Objeto que agrupa los campos para que sea más fácil enviarlos
   userData = {
     nombre: '',
     apellido: '',
     email: '',
     password: '',
     telefono: '',
-    rol: 'cliente' // Por defecto para nuevos registros
+    rol: 'cliente', //se le dejara como predeterminado el rol de cliente para usuarios nuevos al registrarse
+    direccion: '',
+    estado: 'activo' 
   };
 
   errorMessage: string = '';
@@ -30,7 +31,6 @@ export class RegistroComponent {
   ) {}
 
   onRegistro() {
-    // Validamos que los campos obligatorios no estén vacíos
     if (!this.userData.nombre || !this.userData.email || !this.userData.password) {
       this.errorMessage = 'Por favor, completa los campos obligatorios.';
       return;
@@ -38,7 +38,6 @@ export class RegistroComponent {
 
     console.log('Enviando datos de registro:', this.userData);
 
-    // Llamamos al método del servicio
     this.authService.registro(this.userData).subscribe({
       next: (res: any) => {
         alert('¡Usuario registrado con éxito! Ahora puedes iniciar sesión.');

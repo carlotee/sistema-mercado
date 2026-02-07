@@ -1,35 +1,41 @@
 const express = require('express');
 const cors = require('cors');
 const db = require('./database.js'); 
-const authRoutes = require('./routes/auth.routes.js'); // 1. IMPORTA tus rutas de autenticación
+const authRoutes = require('./routes/auth.routes.js');
+
 const app = express();
 
 app.use(cors()); 
 app.use(express.json());
 
-// 2. USA las rutas. 
-// Si quieres que la URL sea http://localhost:3000/login, déjalo así:
+
 app.use('/', authRoutes); 
 
-// Ruta de prueba para verificar la base de datos
 app.get('/test-db', async (req, res) => {
   try {
-    const [rows] = await db.query('SELECT 1 + 1 AS result');
+    const [rows] = await db.query('SELECT COUNT(*) AS total FROM usuarios');
     res.json({ 
-      mensaje: 'Conexión exitosa con la base de datos mercado_db', 
-      resultado: rows 
+      mensaje: 'Conexión exitosa con la base de datos market_db', 
+      servidor: 'OK',
+      total_usuarios: rows[0].total 
     });
   } catch (error) {
+    console.error('Error detallado:', error);
     res.status(500).json({ 
       mensaje: 'Error al conectar con la base de datos', 
-      error: error.message 
+      error: error.message,
+      codigo: error.code 
     });
   }
 });
 
-app.get('/', (req, res) => res.send('API de Market funcionando'));
+app.get('/', (req, res) => {
+    res.send('API de Sistema Mercado funcionando correctamente');
+});
 
-app.listen(3000, () => {
-    console.log('Servidor corriendo en http://localhost:3000');
-    console.log('Ruta de login lista en http://localhost:3000/login');
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`\n🚀 Servidor corriendo en: http://localhost:${PORT}`);
+    console.log(`✅ Ruta de login: http://localhost:${PORT}/login`);
+    console.log(`✅ Ruta de prueba DB: http://localhost:${PORT}/test-db\n`);
 });

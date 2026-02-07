@@ -39,41 +39,21 @@ router.post('/login', async (req, res) => {
 // REGISTRO
 // ==========================
 router.post('/registro', async (req, res) => {
-  const { nombre, apellido, email, password, telefono } = req.body;
+    const { nombre, apellido, email, password, telefono, direccion } = req.body;
 
-  try {
-    // Verificamos si el usuario ya existe
-    const [existe] = await db.query(
-      'SELECT id FROM usuarios WHERE email = ?',
-      [email]
-    );
-
-    if (existe.length > 0) {
-      return res.status(400).json({
-        success: false,
-        mensaje: 'El correo ya está registrado'
-      });
+    try {
+        const query = `
+            INSERT INTO usuarios (nombre, apellido, email, password, telefono, direccion, estado) 
+            VALUES (?, ?, ?, ?, ?, ?, 'activo')
+        `;
+        
+        await db.query(query, [nombre, apellido, email, password, telefono, direccion]);
+        
+        res.status(201).json({ mensaje: '¡Registro exitoso!' });
+    } catch (error) {
+        console.error("Error en SQL:", error);
+        res.status(500).json({ mensaje: 'Error al registrar', error: error.message });
     }
-
-    // Insertamos nuevo usuario
-    const query = `
-      INSERT INTO usuarios (nombre, apellido, email, password, telefono)
-      VALUES (?, ?, ?, ?, ?)
-    `;
-
-    await db.query(query, [nombre, apellido, email, password, telefono]);
-
-    res.json({
-      success: true,
-      mensaje: 'Usuario registrado correctamente'
-    });
-
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: error.message
-    });
-  }
 });
 
 module.exports = router;
