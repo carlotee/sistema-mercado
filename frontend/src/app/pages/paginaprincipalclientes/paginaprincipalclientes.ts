@@ -15,4 +15,7 @@ export class PaginaprincipalclientesComponent {
   cerrarSesion() {
     this.router.navigate(['/login']);
   }
+  editarPerfil() {
+    this.router.navigate(['/editar-perfil']);
+  }
 }
