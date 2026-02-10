@@ -2,9 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../database.js'); // Importamos tu conexión
 
-// ==========================
-// LOGIN (Tu código original)
-// ==========================
+
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -34,9 +32,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// ==========================
-// REGISTRO (Tu código original)
-// ==========================
+
 router.post('/registro', async (req, res) => {
     const { nombre, apellido, email, password, telefono, direccion } = req.body;
 
