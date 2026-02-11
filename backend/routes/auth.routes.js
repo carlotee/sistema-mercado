@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../database.js'); // Importamos tu conexión
-
+const db = require('../database.js'); 
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;

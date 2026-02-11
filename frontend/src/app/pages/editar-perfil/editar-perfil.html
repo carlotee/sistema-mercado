@@ -1,1 +1,39 @@
-<p>editar-perfil works!</p>
+<div class="login-container"> <div class="form-login"> <h1>Mi Perfil</h1>
+    <p>Edita tu información de contacto y despacho</p>
+
+    <form #form="ngForm" (ngSubmit)="onSubmit()" novalidate>
+      
+      <div class="input-group">
+        <label>Nombre y Apellido</label>
+        <div style="display: flex; gap: 10px;">
+          <input type="text" name="nombre" [(ngModel)]="usuario.nombre" placeholder="Nombre" required>
+          <input type="text" name="apellido" [(ngModel)]="usuario.apellido" placeholder="Apellido" required>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>Correo Electrónico (No editable)</label>
+        <input type="email" name="email" [(ngModel)]="usuario.email" disabled class="disabled-input">
+      </div>
+
+      <div class="input-group">
+        <label>Dirección de Envío</label>
+        <input type="text" name="direccion" [(ngModel)]="usuario.direccion" placeholder="Ej: La Serena" required>
+      </div>
+
+      <div class="input-group">
+        <label>Teléfono</label>
+        <input type="text" name="telefono" [(ngModel)]="usuario.telefono" placeholder="9XXXXXXXX" required>
+      </div>
+
+      <div class="input-group">
+        <label>Cambiar Contraseña</label>
+        <input type="password" name="password" [(ngModel)]="usuario.password" placeholder="Dejar vacío si no quieres cambiarla">
+      </div>
+
+      <button type="submit" [disabled]="form.invalid">
+        Actualizar Todo
+      </button>
+    </form>
+  </div>
+</div>

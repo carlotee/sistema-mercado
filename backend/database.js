@@ -1,7 +1,6 @@
 const mysql = require('mysql2');
 require('dotenv').config();
 
-// Creamos el pool de conexiones
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -13,12 +12,10 @@ const pool = mysql.createPool({
     queueLimit: 0
 });
 
-// Exportamos la promesa para poder usar async/await
 const promisePool = pool.promise();
 
 console.log('Intentando conectar a la base de datos...');
 
-// Prueba de conexión rápida
 pool.getConnection((err, connection) => {
     if (err) {
         console.error('Error conectando a la base de datos:', err.message);
