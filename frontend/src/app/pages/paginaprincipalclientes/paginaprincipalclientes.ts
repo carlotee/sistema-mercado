@@ -18,4 +18,7 @@ export class PaginaprincipalclientesComponent {
   editarPerfil() {
     this.router.navigate(['/editar-perfil']);
   }
+  verCompras() {
+    this.router.navigate(['/carrito']);
+  }
 }

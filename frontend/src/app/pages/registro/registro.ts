@@ -40,7 +40,6 @@ export class RegistroComponent {
 
     this.authService.registro(this.userData).subscribe({
       next: (res: any) => {
-        alert('¡Usuario registrado con éxito! Ahora puedes iniciar sesión.');
         this.router.navigate(['/login']); // Redirige al login tras el éxito
       },
       error: (err: any) => {

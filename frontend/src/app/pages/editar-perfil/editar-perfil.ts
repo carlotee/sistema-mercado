@@ -11,7 +11,6 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './editar-perfil.css',
 })
 export class EditarPerfilComponent implements OnInit {
-  // Objeto adaptado exactamente a las columnas de tu tabla 'usuarios'
   usuario: any = {
     id_usuario: null,
     nombre: '',
@@ -25,42 +24,44 @@ export class EditarPerfilComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    // 1. Obtenemos los datos guardados al iniciar sesión
     const session = localStorage.getItem('usuario_mercado');
     
     if (session) {
-      const datosSesion = JSON.parse(session);
+      const datosCargados = JSON.parse(session);
       
-      // 2. Cargamos todos los datos en el objeto del formulario
-      this.usuario = { ...datosSesion };
+      /** * REVISIÓN DE ESTRUCTURA:
+       * Si guardaste la respuesta completa del login, el ID está en datosCargados.usuario.id_usuario.
+       * Si guardaste solo el usuario, está en datosCargados.id_usuario.
+       */
+      const infoUsuario = datosCargados.usuario ? datosCargados.usuario : datosCargados;
 
-      // 3. REFUERZO DE SEGURIDAD: Aseguramos que el ID no sea null
-      // MySQL usa 'id_usuario', pero lo validamos por si acaso se guardó como 'id'
-      this.usuario.id_usuario = datosSesion.id_usuario || datosSesion.id;
+      // Asignamos los datos al formulario
+      this.usuario = { ...infoUsuario };
 
-      // Log para que verifiques en la consola del navegador que el ID ya no es null
-      console.log('ID listo para la actualización:', this.usuario.id_usuario);
+      // Forzamos la asignación del ID para que la URL sea /usuarios/1 y no /null
+      this.usuario.id_usuario = infoUsuario.id_usuario;
+
+      console.log('ID detectado para la actualización:', this.usuario.id_usuario);
     }
   }
 
   onSubmit() {
-    // 4. Verificación preventiva antes de enviar al backend
+    // Si el ID sigue siendo null, bloqueamos el envío para evitar el error 404
     if (!this.usuario.id_usuario) {
-      alert('❌ Error: No se encontró el ID del usuario. Por favor, re-inicia sesión.');
+      alert('❌ Error: El ID del usuario no se cargó. Cierra sesión y vuelve a entrar.');
       return;
     }
 
-    // 5. Enviamos la petición PUT al servidor de Node.js
     this.authService.actualizarPerfil(this.usuario).subscribe({
       next: (res) => {
         alert('✅ Perfil actualizado con éxito en Market Pro');
         
-        // 6. Actualizamos el localStorage para que los cambios se reflejen en todo el sistema
+        // Actualizamos el localStorage para que el nombre nuevo se vea en el Navbar
         localStorage.setItem('usuario_mercado', JSON.stringify(this.usuario));
       },
       error: (err) => {
-        console.error('Error detallado al guardar:', err);
-        alert('❌ No se pudieron guardar los cambios. Revisa que el servidor esté encendido.');
+        console.error('Error detallado:', err);
+        alert('❌ No se pudo actualizar. Verifica que el servidor Node.js esté corriendo.');
       }
     });
   }
