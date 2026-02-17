@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service'; // Asegúrate de que la ruta sea correcta
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -12,52 +12,55 @@ import { AuthService } from '../../services/auth.service'; // Asegúrate de que 
   styleUrl: './login.css'
 })
 export class LoginComponent {
-  // Variables de formulario vinculadas con [(ngModel)]
   email: string = '';
   password: string = '';
-  
-  // Manejo de UI y errores
   errorMessage: string = '';
-  passwordVisible: boolean = false; // Controla el ver/ocultar contraseña
+  passwordVisible: boolean = false;
 
   constructor(
     private authService: AuthService, 
     private router: Router
   ) {}
 
-  /**
-   * Cambia el estado de visibilidad de la contraseña
-   */
   togglePassword(): void {
     this.passwordVisible = !this.passwordVisible;
   }
 
-  /**
-   * Envía los datos al backend para validar contra la base de datos mercado_db
-   */
-onSubmit(): void {
-  const credentials = {
-    email: this.email,
-    password: this.password
-  };
+  onSubmit(): void {
+    const credentials = {
+      email: this.email,
+      password: this.password
+    };
 
-  this.authService.login(credentials).subscribe({
-    next: (res: any) => {
-      console.log('Login exitoso:', res);
-      this.errorMessage = '';
-      this.router.navigate(['/principal-clientes']); 
-    },
-    error: (err: any) => {
-      console.error('Error en el login:', err);
-      // Si el backend envía un mensaje específico, lo mostramos
-      // Si no, usamos un mensaje genérico
-      this.errorMessage = err.error?.mensaje || 'Error al conectar con el servidor o credenciales inválidas.';
-    }
-  });
-}
-  /**
-   * Navegación manual hacia la página de registro
-   */
+    this.authService.login(credentials).subscribe({
+      next: (res: any) => {
+        if (res.success) {
+          console.log('Login exitoso:', res);
+          
+          // 1. Guardamos el objeto 'usuario' que viene del backend
+          // Esto incluye id_usuario, nombre, rol, etc.
+          const usuario = res.usuario;
+          localStorage.setItem('usuario_mercado', JSON.stringify(usuario));
+
+          // 2. Lógica de Redirección basada en el ROL de la base de datos
+          if (usuario.rol === 'admin' || usuario.rol === 'empleado') {
+            console.log('Bienvenido Administrador/Empleado');
+            this.router.navigate(['/dashboard']); // Página para agregar productos
+          } else {
+            console.log('Bienvenido Cliente');
+            this.router.navigate(['/principal-clientes']); // Página de compras
+          }
+          
+          this.errorMessage = '';
+        }
+      },
+      error: (err: any) => {
+        console.error('Error en el login:', err);
+        this.errorMessage = err.error?.mensaje || 'Credenciales inválidas o error de servidor.';
+      }
+    });
+  }
+
   irARegistro(): void {
     this.router.navigate(['/registro']);
   }

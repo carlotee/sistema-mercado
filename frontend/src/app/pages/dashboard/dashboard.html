@@ -1,1 +1,66 @@
-<p>dashboard works!</p>
+<link rel="stylesheet" href="dashboard.css">
+<div class="admin-container">
+  <nav class="navbar-admin">
+    <div class="nav-brand">
+      <h1>Panel de Gestión - Market Pro</h1>
+      <span class="admin-badge">Admin Mode</span>
+    </div>
+    <button (click)="logout()" class="btn-logout">Cerrar Sesión</button>
+  </nav>
+
+  <div class="dashboard-grid">
+    <div class="form-agregar-producto">
+      <h2>📦 Agregar Nuevo Producto</h2>
+      <p class="subtitle">Completa los datos para publicar en el catálogo</p>
+      
+      <form (ngSubmit)="guardarProducto()">
+        <div class="input-group">
+          <label>Nombre del Producto</label>
+          <input type="text" [(ngModel)]="nuevoProducto.nombre" name="nombre" placeholder="Ej: Teclado Mecánico" required>
+        </div>
+
+        <div class="row">
+          <div class="input-group">
+            <label>Precio ($)</label>
+            <input type="number" [(ngModel)]="nuevoProducto.precio" name="precio" placeholder="0.00" required>
+          </div>
+          <div class="input-group">
+            <label>Stock Inicial</label>
+            <input type="number" [(ngModel)]="nuevoProducto.stock" name="stock" placeholder="Cantidad" required>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Descripción</label>
+          <textarea [(ngModel)]="nuevoProducto.descripcion" name="descripcion" placeholder="Detalles del producto..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">🚀 Publicar para Clientes</button>
+      </form>
+    </div>
+
+    <div class="inventory-table-container">
+      <h2>📊 Inventario Actual</h2>
+      <div class="table-responsive">
+        <table class="inventory-table">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Precio</th>
+              <th>Stock</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Producto de Ejemplo</td>
+              <td>$10.000</td>
+              <td>15</td>
+              <td><span class="status-pill">Disponible</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -5,7 +5,10 @@ const db = require('./database.js');
 const authRoutes = require('./routes/auth.routes.js');
 
 const app = express();
+// Cerca de donde tienes tus otras rutas (como /login)
+const pedidosRoutes = require('./routes/pedidos.routes');
 
+app.use('/api/pedidos', pedidosRoutes);
 app.use(cors()); 
 app.use(express.json()); 
 

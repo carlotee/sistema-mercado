@@ -21,4 +21,8 @@ export class AuthService {
     // Usamos el id_usuario para la ruta del backend
     return this.http.put(`${this.apiUrl}/usuarios/${userData.id_usuario}`, userData);
   }
+  finalizarCompra(datosPedido: any): Observable<any> {
+  // Esta ruta debe coincidir con la que creaste en tu index.js/auth.routes.js
+  return this.http.post(`${this.apiUrl}/api/pedidos/finalizar-compra`, datosPedido);
+}
 }

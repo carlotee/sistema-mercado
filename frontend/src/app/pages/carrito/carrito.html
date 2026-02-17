@@ -1,1 +1,18 @@
-<p>carrito works!</p>
+<div class="carrito">
+    <h1>Carrito de Compras</h1>
+    <div class="carrito-items">
+        <div class="carrito-item" *ngFor="let item of carritoItems">
+        <img [src]="item.producto.imagen" alt="{{ item.producto.nombre }}" class="carrito-item-imagen">
+        <div class="carrito-item-detalles">
+            <h2>{{ item.producto.nombre }}</h2>
+            <p>Precio: {{ item.producto.precio | currency }}</p>
+            <p>Cantidad: {{ item.cantidad }}</p>
+            <button (click)="eliminarDelCarrito(item)">Eliminar</button>
+        </div>
+        </div>
+    </div>
+    <div class="carrito-total">
+        <h2>Total: {{ calcularTotal() | currency }}</h2>
+        <button (click)="finalizarCompra()">Finalizar Compra</button>
+    </div>
+</div>
