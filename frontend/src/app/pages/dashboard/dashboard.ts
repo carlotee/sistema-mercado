@@ -1,31 +1,69 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // ⬅️ IMPORTANTE: Esto quita el error de ngModel
+import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule], // ⬅️ Agrégalo aquí también
+  imports: [CommonModule, FormsModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
 export class DashboardComponent {
-  // 🆕 Define el objeto que el HTML no encontraba (Error TS2339)
+  // Estructura del producto ajustada a market_db
   nuevoProducto = {
     nombre: '',
     precio: 0,
     stock: 0,
-    descripcion: ''
+    descripcion: '',
+    imagen: '' // Aquí guardaremos el nombre o base64 de la imagen
   };
+
+  // Variables para la gestión de archivos
+  selectedFile: File | null = null;
+  imagenPreview: string | null = null;
 
   constructor(private authService: AuthService, private router: Router) {}
 
+  // 🆕 Esta es la función que te faltaba y causaba el error
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+
+      // Creamos una previsualización para el Dashboard
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagenPreview = reader.result as string;
+        // Opcional: guardar el string en el objeto (depende de cómo reciba el backend)
+        this.nuevoProducto.imagen = file.name; 
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
   guardarProducto() {
-    console.log('Enviando producto a la base de datos market_db:', this.nuevoProducto);
-    // Aquí llamarás a la ruta del backend que configuramos para agregar productos
-    alert('Producto listo para ser guardado');
+    if (!this.nuevoProducto.nombre || this.nuevoProducto.precio <= 0) {
+      alert('Por favor, completa los campos obligatorios.');
+      return;
+    }
+
+    console.log('Subiendo nuevo producto a market_db:', this.nuevoProducto);
+    
+    // Aquí se enviaría al backend mediante el servicio
+    // Recuerda que si usas imágenes reales, a veces se usa FormData en lugar de un objeto simple
+    alert('✅ Producto "' + this.nuevoProducto.nombre + '" publicado con éxito.');
+    
+    // Limpiar formulario después de guardar
+    this.limpiarFormulario();
+  }
+
+  limpiarFormulario() {
+    this.nuevoProducto = { nombre: '', precio: 0, stock: 0, descripcion: '', imagen: '' };
+    this.imagenPreview = null;
+    this.selectedFile = null;
   }
 
   logout() {

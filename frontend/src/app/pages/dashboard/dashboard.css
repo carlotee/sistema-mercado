@@ -1,0 +1,172 @@
+/* Importamos la fuente desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700;800&display=swap');
+
+/* RESET GLOBAL */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: #f3f4f6;
+  font-family: 'Public Sans', sans-serif; 
+  overflow-x: hidden;
+}
+
+/* NAVBAR CORPORATIVA */
+.navbar-admin {
+  background-color: #1e3a8a; /* Azul Navy Profesional */
+  color: #ffffff;
+  padding: 1.2rem 5%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.nav-brand h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.admin-badge {
+  font-size: 0.75rem;
+  background: #3b82f6;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* ⬇️ AQUÍ ESTÁ LA CLASE QUE FALTABA */
+.btn-logout {
+  background-color: #ffffff;
+  color: #1e3a8a;
+  border: 1px solid #ffffff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-family: 'Public Sans', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-logout:hover {
+  background-color: #fee2e2; /* Rojo muy suave al pasar el mouse */
+  color: #991b1b;
+  border-color: #fecaca;
+}
+
+/* GRID DE GESTIÓN */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 420px 1fr; 
+  gap: 30px;
+  padding: 40px 5%;
+}
+
+/* TARJETAS DE GESTIÓN */
+.form-agregar-producto, .inventory-table-container {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  border: 1px solid #e5e7eb;
+}
+
+h2 {
+  color: #111827;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+/* FORMULARIO Y FILA DE STOCK */
+.row {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+
+.input-group {
+  flex: 1;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  color: #374151;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+/* ESTILO DE LOS CAMPOS DE TEXTO */
+input, textarea {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: #111827;
+  box-sizing: border-box;
+}
+
+input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+/* BOTÓN DE ACCIÓN */
+.btn-submit {
+  width: 100%;
+  padding: 14px;
+  background-color: #059669; /* Verde esmeralda */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-submit:hover {
+  background-color: #047857;
+}
+
+/* TABLA DE INVENTARIO */
+.inventory-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.inventory-table th {
+  background-color: #f9fafb;
+  color: #6b7280;
+  font-weight: 600;
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.inventory-table td {
+  padding: 16px 12px;
+  border-bottom: 1px solid #f3f4f6;
+  font-size: 0.9rem;
+}
+
+.status-pill {
+  background-color: #dcfce7;
+  color: #166534;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}

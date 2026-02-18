@@ -19,6 +19,11 @@
           <input type="text" [(ngModel)]="nuevoProducto.nombre" name="nombre" placeholder="Ej: Teclado Mecánico" required>
         </div>
 
+        <div class="img-container">
+          <label>Imagen del Producto</label>
+          <input type="file" (change)="onFileSelected($event)" accept="image/*">
+        </div>
+
         <div class="row">
           <div class="input-group">
             <label>Precio ($)</label>
