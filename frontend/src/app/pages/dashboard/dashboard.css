@@ -104,7 +104,6 @@ label {
   margin-bottom: 6px;
 }
 
-/* ESTILO DE LOS CAMPOS DE TEXTO */
 input, textarea {
   width: 100%;
   background: #ffffff;
@@ -123,11 +122,10 @@ input:focus {
   box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
 }
 
-/* BOTÓN DE ACCIÓN */
 .btn-submit {
   width: 100%;
   padding: 14px;
-  background-color: #059669; /* Verde esmeralda */
+  background-color: #059669; 
   color: white;
   border: none;
   border-radius: 8px;

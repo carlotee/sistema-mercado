@@ -1,4 +1,7 @@
-<div class="login-container"> <div class="form-login"> <h1>Mi Perfil</h1>
+<link rel="stylesheet" href="editar-perfil.css">
+<div class="login-container"> 
+  <div class="form-login"> 
+  <h1>Mi Perfil</h1>
     <p>Edita tu información de contacto y despacho</p>
 
     <form #form="ngForm" (ngSubmit)="onSubmit()" novalidate>
@@ -31,7 +34,7 @@
         <input type="password" name="password" [(ngModel)]="usuario.password" placeholder="Dejar vacío si no quieres cambiarla">
       </div>
 
-      <button type="submit" [disabled]="form.invalid">
+      <button type="submit" [disabled]="form.invalid" class="btn-submit">
         Actualizar Todo
       </button>
     </form>

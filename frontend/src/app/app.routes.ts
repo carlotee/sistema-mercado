@@ -9,9 +9,9 @@ import { DashboardComponent } from './pages/dashboard/dashboard';
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroComponent },
-  { path: 'principal-clientes', component: PaginaprincipalclientesComponent }, // Nueva ruta
-  { path: 'editar-perfil', component: EditarPerfilComponent }, // Nueva ruta para editar perfil
-  { path: 'carrito', component: CarritoComponent }, // Nueva ruta para el carrito
-  { path: 'dashboard', component: DashboardComponent }, // Ruta para el dashboard de admin/empleado
+  { path: 'principal-clientes', component: PaginaprincipalclientesComponent }, 
+  { path: 'editar-perfil', component: EditarPerfilComponent }, 
+  { path: 'carrito', component: CarritoComponent }, 
+  { path: 'dashboard', component: DashboardComponent }, 
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];

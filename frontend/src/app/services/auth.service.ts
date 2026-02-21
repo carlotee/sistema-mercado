@@ -16,13 +16,29 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/registro`, userData);
   }
 
-  // 🆕 FUNCIÓN PARA EDITAR TODO EL PERFIL
   actualizarPerfil(userData: any): Observable<any> {
-    // Usamos el id_usuario para la ruta del backend
     return this.http.put(`${this.apiUrl}/usuarios/${userData.id_usuario}`, userData);
   }
+
   finalizarCompra(datosPedido: any): Observable<any> {
-  // Esta ruta debe coincidir con la que creaste en tu index.js/auth.routes.js
-  return this.http.post(`${this.apiUrl}/api/pedidos/finalizar-compra`, datosPedido);
-}
+    return this.http.post(`${this.apiUrl}/api/pedidos/finalizar-compra`, datosPedido);
+  }
+
+  // ⬇️ NUEVAS FUNCIONES PARA PRODUCTOS
+
+  /**
+   * Envía el FormData con los datos del producto y la imagen al servidor
+   * Se usa en el Dashboard de Carlos Vega
+   */
+  crearProducto(formData: FormData): Observable<any> {
+    return this.http.post(`${this.apiUrl}/api/productos`, formData);
+  }
+
+  /**
+   * Trae la lista de productos activos de market_db
+   * Se usa tanto en el Dashboard como en la Vista de Clientes
+   */
+  getProductos(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/api/productos`);
+  }
 }
